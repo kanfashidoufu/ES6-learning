@@ -17,3 +17,25 @@ console.log(window.PI2);
 const PI = 3.1415926;
 console.log(PI);
 ```
+### **作用域**
+
+ES5中作用域
+```
+var callbacks = [];
+for (var i = 0; i <= 2; i++) {
+    callbacks[i] = function() {
+        return i * 2;
+    }
+}
+```
+看下执行结果
+```
+console.table([
+    callbacks[0](),
+    callbacks[1](),
+    callbacks[2](),
+])
+```
+结果如下图所示
+![1](assets/1.jpg)
+为什么都是6呢 这里其实是因为i的变量提升导致i的作用域其实是全局的
