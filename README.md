@@ -1,6 +1,6 @@
 # ES6学习笔记
 ## 对比学习方法
-解决一个问题分别使用ES3、ES5、ES6方式实现
+解决一个问题分别使用ES5、ES6方式实现
 
 ### **常量**
 ES5中的常量的写法 利用给对象增加属性的方法,JS中全局对象是window，对于常量来说可以绑定在window上
@@ -78,3 +78,78 @@ console.table([
 }
 ```
 结果都是true 由此可见ES6中的作用域也更加简单利于理解
+
+### **箭头函数**
+ES6中函数的新的语法
+
+ES5中：
+```
+function a() {
+
+    }
+```
+
+ES6中：
+```
+()=>{
+    
+    }
+```
+这里要注意两点：
+* 箭头函数中的小括号是用来声明参数的，当参数只有一个时可以省略小括号；
+* 花括号中的表达式直接作为返回值时，花括号也可以被省略；
+例如：
+```
+// ES5中
+{
+    var evens = [1,2,3,4,5];
+    var odds = evens.map(function(v) {
+        return v + 1;
+    })
+    console.log(evens,odds);
+}
+```
+```
+// ES6中
+{
+    let evens = [1,2,3,4,5];
+    let odds = evens.map(v => v + 1);
+    console.log(evens, odds);
+}
+```
+ES5中的函数写法和ES6中的函数写法久经区别在哪里，答案就是关于this的绑定
+```
+//ES5中的写法
+{
+    var factory = function() {
+        this.a = 'a';
+        this.b = 'b';
+        this.c = {
+            a: 'a+',
+            b: function() {
+                return this.a
+            }
+        }
+    }
+    console.log(new factory().c.b());
+};
+```
+输出结果是什么呢?答案是'a+'。
+总结了一句话：this的指向是该函数被调用的对象
+```
+//ES6中的写法
+{
+    let factory = function() {
+        this.a = 'a';
+        this.b = 'b';
+        this.c = {
+            a: 'a+',
+            b: ()=>{
+                return this.a
+            }
+        }
+    }
+    console.log(new factory().c.b());
+};
+```
+输出结果是'a'。为什么产生这样的差异呢？原因在于箭头函数函数体中的this的指向是定义时this的指向
