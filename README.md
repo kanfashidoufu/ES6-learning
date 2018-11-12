@@ -337,6 +337,7 @@ var Person={
     //结果报错Uncaught TypeError: Cannot assign to read only property 'sex' of object '#<Object>'
 ```
 结果如下
+
 (index) | Value
 ------------- | -------------
 name  | "es5"
@@ -348,6 +349,7 @@ age  | 15
 name  | "es5-cname"
 sex  | "male"
 age  | 15
+
 第三个打印报错语句
 ```
 Uncaught TypeError: Cannot assign to read only property 'sex' of object '#<Object>'
@@ -389,11 +391,13 @@ let Person={
     //报错'set' on proxy: trap returned falsish for property 'sex'
 ```
 结果如下
+
 (index) | Value
 ------------- | -------------
 name  | "es6"
 sex  | "male"
 age  | 15
+
 第二个打印报错语句
 ```
 'set' on proxy: trap returned falsish for property 'sex'
