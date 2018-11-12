@@ -1,83 +1,113 @@
-/* eslint-disable */
 {
-  // ES3,ES5 数据保护
-  var Person = function() {
-    var data = {
-      name: 'es3',
-      sex: 'male',
-      age: 15
+  //ES5中的数据保护
+  var Person=function(){
+    var data={
+      name:'es5',
+      sex:'male',
+      age:15
     }
-    this.get = function(key) {
+    this.get=function(key) {
       return data[key]
     }
-    this.set = function(key, value) {
-      if (key !== 'sex') {
-        data[key] = value
+    this.set=function(key, value) {
+      if (key!='sex') {
+        data[key]=value;
       }
     }
   }
-
-  // 声明一个实例
+  //声明一个实例
   var person = new Person();
-  // 读取
-  console.table({name: person.get('name'), sex: person.get('sex'), age: person.get('age')});
-  // 修改
+  //读取数据
+  console.table({
+    name: person.get('name'),
+    sex: person.get('sex'),
+    age: person.get('age')
+  })
+  //修改数据
   person.set('name', 'es3-cname');
-  console.table({name: person.get('name'), sex: person.get('sex'), age: person.get('age')});
+  console.table({
+    name: person.get('name'),
+    sex: person.get('sex'),
+    age: person.get('age')
+  })
+  //尝试修改性别
   person.set('sex', 'female');
-  console.table({name: person.get('name'), sex: person.get('sex'), age: person.get('age')});
-} {
-  // ES5
-  var Person = {
+  console.table({
+    name: person.get('name'),
+    sex: person.get('sex'),
+    age: person.get('age')
+  })
+}
+
+{
+  //ES5中使用常量实现
+  var Person={
     name: 'es5',
     age: 15
   };
-
   Object.defineProperty(Person, 'sex', {
     writable: false,
-    value: 'male'
+    value:'male'
   });
-
-  console.table({name: Person.name, age: Person.age, sex: Person.sex});
-  Person.name = 'es5-cname';
-  console.table({name: Person.name, age: Person.age, sex: Person.sex});
+  console.table({
+    name: Person.name,
+    age: Person.age,
+    sex: Person.sex
+  })
+  Person.name='es5-cname';
+  console.table({
+    name: Person.name,
+    age: Person.age,
+    sex: Person.sex
+  })
   try {
-    Person.sex = 'female';
-    console.table({name: Person.name, age: Person.age, sex: Person.sex});
-  } catch (e) {
-    console.log(e);
+    Person.sex='female';
+    console.table({
+      name: Person.name,
+      age: Person.age,
+      sex: Person.sex
+    })
+  } catch (e){
+    console.log(e)
+  } finally {
+
   }
-} {
-  // ES6
-  let Person = {
+  //结果报错Uncaught TypeError: Cannot assign to read only property 'sex' of object '#<Object>'
+}
+
+{
+  // ES6中的做法
+  let Person={
     name: 'es6',
     sex: 'male',
     age: 15
   };
-
   let person = new Proxy(Person, {
-    get(target, key) {
+    get(target, key){
       return target[key]
     },
-    set(target,key,value){
-      if(key!=='sex'){
+    set(targt, key, value){
+      if (key!=='sex') {
         target[key]=value;
       }
     }
   });
-
   console.table({
-    name:person.name,
-    sex:person.sex,
-    age:person.age
-  });
-
+    name: person.name,
+    sex: person.sex,
+    age: person.age
+  })
   try {
     person.sex='female';
-  } catch (e) {
-    console.log(e);
+    console.table({
+      name: person.name,
+      age: person.age,
+      sex: person.sex
+    })
+  } catch (e){
+    console.log(e)
   } finally {
 
   }
-
+  //报错'set' on proxy: trap returned falsish for property 'sex'
 }
