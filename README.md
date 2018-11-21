@@ -282,6 +282,7 @@ var Person=function(){
     })
 ```
 结果如下
+
 (index) | Value
 ------------- | -------------
 name  | "es5"
